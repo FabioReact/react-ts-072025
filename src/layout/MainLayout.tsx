@@ -1,4 +1,11 @@
+import { useAuthContext } from "@/context/auth-context";
 import { NavLink, Outlet } from "react-router";
+
+enum LinkVisibility {
+  PUBLIC = "PUBLIC",
+  AUTHENTICATED = "AUTHENTICATED",
+  NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
+}
 
 const getActiveClassnames = ({
   isActive,
@@ -13,36 +20,63 @@ const getActiveClassnames = ({
 };
 
 const MainLayout = () => {
-  // const links = [
-  //   { to: '/', label: 'Home' },
-  //   { to: '/heroes', label: 'Heroes' },
-  // ]
+  const { accessToken } = useAuthContext();
+
+  const links: { to: string; label: string; visibility: LinkVisibility }[] = [
+    { to: "/", label: "Home", visibility: LinkVisibility.PUBLIC },
+    { to: "/heroes", label: "Heroes", visibility: LinkVisibility.PUBLIC },
+    {
+      to: "/profile",
+      label: "Profile",
+      visibility: LinkVisibility.AUTHENTICATED,
+    },
+    {
+      to: "/register",
+      label: "Register",
+      visibility: LinkVisibility.NOT_AUTHENTICATED,
+    },
+    {
+      to: "/login",
+      label: "Login",
+      visibility: LinkVisibility.NOT_AUTHENTICATED,
+    },
+    {
+      to: "/logout",
+      label: "Logout",
+      visibility: LinkVisibility.AUTHENTICATED,
+    },
+  ];
   return (
     <div>
       <nav>
-        <ul className="flex justify-center gap-4">
-          <li>
-            <NavLink to="/" className={getActiveClassnames}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/heroes" className={getActiveClassnames}>
-              Heroes
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/profile" className={getActiveClassnames}>
-              Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/register" className={getActiveClassnames}>
-              Register
-            </NavLink>
-          </li>
-          {/* <li><NavLink to="/learning/lifecycle" className={getActiveClassnames}>Lifecycle</NavLink></li> */}
-          {/* <li><NavLink to="/learning/counter" className={getActiveClassnames}>Counter</NavLink></li> */}
+        <ul className="flex gap-4 justify-center">
+          {links
+            .filter((link) => {
+              if (link.visibility === LinkVisibility.PUBLIC) return true;
+              if (
+                link.visibility === LinkVisibility.AUTHENTICATED &&
+                accessToken
+              )
+                return true;
+              if (
+                link.visibility === LinkVisibility.NOT_AUTHENTICATED &&
+                !accessToken
+              )
+                return true;
+              return false;
+            })
+            .map((link) => (
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  className={({ isActive, isPending }) =>
+                    getActiveClassnames({ isActive, isPending })
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
         </ul>
       </nav>
       <main>
