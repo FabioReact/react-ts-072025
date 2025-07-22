@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Hero } from "../types/hero";
 
 type Props = {
@@ -15,9 +16,11 @@ const HeroCard = ({ hero }: Props) => {
         />
       </div>
       <div className='px-6 py-2'>
-        <p className='font-bold text-xl'>
-          {hero.name} <span className='text-gray-600 text-base'>#{hero.id}</span>
-        </p>
+        <Link to={`/heroes/${hero.id}`} className='hover:underline'>
+          <p className='font-bold text-xl'>
+            {hero.name} <span className='text-gray-600 text-base'>#{hero.id}</span>
+          </p>
+        </Link>
         <p className='text-lg mb-2'>{hero.biography['full-name']}</p>
         <p className='text-gray-700'>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa voluptas iste laboriosam
