@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import './App.css'
+import "./App.css";
 import Home from "./pages/Home";
 import HeroesList from "./pages/HeroesList";
 import LifeCycle from "./learning/LifeCycle";
@@ -32,7 +32,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,31 +1,53 @@
-import { useEffect, useRef, useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { schema, type Inputs } from "./schema";
 
 const Register = () => {
-    const [c, setC] = useState(0);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const isFirstRender = useRef(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({ resolver: zodResolver(schema) });
 
-    const onSubmitHandler = () => {
-        console.log("Form submitted", inputRef.current?.value);
-    }
-
-    useEffect(() => {
-        if (isFirstRender.current) {
-            console.log("Only runs on first render");
-            isFirstRender.current = false;
-        } else {
-            console.log("Runs on every update except first render");
-        }
-    }, [c]);
+  const onSubmitHandler: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+  };
 
   return (
-      <>
-        <div>Register</div>
-        <input type="text" id="email" ref={inputRef} />
-        <button onClick={onSubmitHandler}>Submit</button>
-        <button onClick={() => setC(c => c + 1)}>Increment {c}</button>
-    </>
-  )
-}
+    <form onSubmit={handleSubmit(onSubmitHandler)}>
+      <div>Register</div>
+      <input
+        className="border"
+        type="text"
+        id="email"
+        {...register("email", { required: true, minLength: 20 })}
+      />
+      {errors.email && (
+        <div className="text-red-500">{errors.email.message}</div>
+      )}
+      <input
+        className="border"
+        type="text"
+        id="password"
+        {...register("password", { required: true })}
+      />
+      {errors.password && (
+        <div className="text-red-500">{errors.password.message}</div>
+      )}
+      <input
+        className="border"
+        type="text"
+        id="passwordConfirmation"
+        {...register("passwordConfirmation", { required: true })}
+      />
+      {errors.passwordConfirmation && (
+        <div className="text-red-500">
+          {errors.passwordConfirmation.message}
+        </div>
+      )}
+      <button>Submit</button>
+    </form>
+  );
+};
 
-export default Register
+export default Register;

@@ -10,11 +10,11 @@ export type Hero = {
     combat: number;
   };
   biography: {
-    'full-name': string;
-    'alter-egos': string;
+    "full-name": string;
+    "alter-egos": string;
     aliases: string[];
-    'place-of-birth': string;
-    'first-appearance': string;
+    "place-of-birth": string;
+    "first-appearance": string;
     publisher: string;
     alignment: string;
   };
@@ -23,15 +23,15 @@ export type Hero = {
     race: string;
     height: string[];
     weight: string[];
-    'eye-color': string;
-    'hair-color': string;
+    "eye-color": string;
+    "hair-color": string;
   };
   work: {
     occupation: string;
     base: string;
   };
   connections: {
-    'group-affiliation': string;
+    "group-affiliation": string;
     relatives: string;
   };
   image: {
