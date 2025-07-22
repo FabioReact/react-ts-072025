@@ -6,13 +6,18 @@ export const getHeroesByFirstLetter = async (letter: string, options: RequestIni
     return response;
 }
 
+export const getHeroById = async (id: string, options: RequestInit = {}) => {
+    const response = await FetchClient.get<Hero>(`http://localhost:4000/heroes/${id}`, options);
+    return response;
+};
+
 export const deleteHero = async (id: number) => {
     await fetch(`http://localhost:4000/heroes/${id}`, {
         method: 'DELETE'
     });
 }
 
-export const updateHero = async (hero: any) => {
+export const updateHero = async (hero: Hero) => {
     await fetch(`http://localhost:4000/heroes/${hero.id}`, {
         method: 'PATCH',
         body: JSON.stringify(hero)
