@@ -4,6 +4,11 @@
       "email": "email@email.fr",
       "password": "$2a$10$YEkKWy/5ez4eSQEihvmNVOkWECoiZ5ok1NVHoy4NWJOpSl8WkmNTq",
       "id": 1
+    },
+    {
+      "email": "email2@email.fr",
+      "password": "$2a$10$nyExG3MwHqpBzHG48GE4ZOMsrYe.2pTd./I2m7EbJ9D.34STNHO0K",
+      "id": 2
     }
   ],
   "heroes": [

@@ -31,6 +31,16 @@ const MainLayout = () => {
               Heroes
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/profile" className={getActiveClassnames}>
+              Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/register" className={getActiveClassnames}>
+              Register
+            </NavLink>
+          </li>
           {/* <li><NavLink to="/learning/lifecycle" className={getActiveClassnames}>Lifecycle</NavLink></li> */}
           {/* <li><NavLink to="/learning/counter" className={getActiveClassnames}>Counter</NavLink></li> */}
         </ul>
