@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { schema, type Inputs } from "./schema";
+import { registerUser } from "@/api/auth";
 
 const Register = () => {
   const {
@@ -9,8 +10,9 @@ const Register = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(schema) });
 
-  const onSubmitHandler: SubmitHandler<Inputs> = (data) => {
+  const onSubmitHandler: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    const response = await registerUser({ email: data.email, password: data.password });
   };
 
   return (
