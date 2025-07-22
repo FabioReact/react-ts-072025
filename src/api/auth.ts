@@ -24,3 +24,20 @@ export const registerUser = ({
   );
   return response;
 };
+
+export const loginUser = ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<AuthResponse> => {
+  const response = FetchClient.post<AuthResponse>(
+    "http://localhost:4000/login",
+    {
+      email,
+      password,
+    },
+  );
+  return response;
+};

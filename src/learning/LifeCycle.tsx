@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+// Rouge -> Vert -> Gris -> Bleu
 
 const LifeCycle = () => {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
+    console.log("Gris")
     console.log("Component mounted - empty dependency array"); // mount
     return () => {
       console.log("Component will be unmounted - empty dependency array"); // unmount
@@ -12,11 +15,19 @@ const LifeCycle = () => {
 
   // Effet de bord - side effect
   useEffect(() => {
-    console.log("Component mounted - counter: ", counter); // mount for every change of counter
+    console.log("Bleu")
+    // console.log("Component mounted - counter: ", counter); // mount for every change of counter
     return () => {
       console.log("Component will be unmounted - counter: ", counter); // unmount for every change of counter
     };
   }, [counter]);
+
+  console.log("Vert")
+
+  useLayoutEffect(() => {
+    console.log("Rouge")
+    // console.log("useLayoutEffect runs with []"); // runs synchronously before the DOM is painted
+  }, []);
 
   return (
     <section>
