@@ -10,32 +10,35 @@ import HeroDetails from "./pages/HeroDetails";
 import Register from "./pages/Register";
 import { AuthContextProvider } from "@/providers/AuthContextProvider";
 import Profile from "./pages/Profile";
+import FavoriteContextProvider from "./providers/FavoriteContextProvider";
 
 const client = new QueryClient();
 function App() {
   return (
     <AuthContextProvider>
-      <QueryClientProvider client={client}>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/heroes" element={<HeroesList />} />
-              <Route path="/heroes/:id" element={<HeroDetails />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/learning">
-                <Route path="lifecycle" element={<LifeCycle />} />
-                <Route path="counter" element={<Counter />} />
+      <FavoriteContextProvider>
+        <QueryClientProvider client={client}>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/heroes" element={<HeroesList />} />
+                <Route path="/heroes/:id" element={<HeroDetails />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/learning">
+                  <Route path="lifecycle" element={<LifeCycle />} />
+                  <Route path="counter" element={<Counter />} />
+                </Route>
               </Route>
-            </Route>
-            {/* <Route element={<MembersLayout />}>
-              <Route path="/members" element={<Members />} />
-              <Route path="/members/:id" element={<MemberDetails />} />
-            </Route> */}
-          </Routes>
-        </BrowserRouter>
-      </QueryClientProvider>
+              {/* <Route element={<MembersLayout />}>
+                <Route path="/members" element={<Members />} />
+                <Route path="/members/:id" element={<MemberDetails />} />
+              </Route> */}
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </FavoriteContextProvider>
     </AuthContextProvider>
   );
 }

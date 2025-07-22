@@ -1,11 +1,16 @@
 import { Link } from "react-router";
 import type { Hero } from "../types/hero";
+import { useFavoriteContext } from "@/context/favorite-context";
+import Star from "./Star";
+
 
 type Props = {
   hero: Hero;
 };
 
 const HeroCard = ({ hero }: Props) => {
+  const { favorites, addToFavorite, removeFromFavorite } = useFavoriteContext();
+  const isFavorite = favorites.some((favorite) => favorite.id === hero.id); // TODO: optimize this check
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg">
       <div className="h-96 overflow-hidden relative">
@@ -16,12 +21,15 @@ const HeroCard = ({ hero }: Props) => {
         />
       </div>
       <div className="px-6 py-2">
-        <Link to={`/heroes/${hero.id}`} className="hover:underline">
-          <p className="font-bold text-xl">
-            {hero.name}{" "}
-            <span className="text-gray-600 text-base">#{hero.id}</span>
-          </p>
-        </Link>
+        <div className="flex justify-between">
+          <Link to={`/heroes/${hero.id}`} className="hover:underline">
+            <p className="font-bold text-xl">
+              {hero.name}{" "}
+              <span className="text-gray-600 text-base">#{hero.id}</span>
+            </p>
+          </Link>
+          <Star onSelect={() => addToFavorite(hero)} filled={isFavorite} onUnSelect={() => removeFromFavorite(hero.id)} />
+        </div>
         <p className="text-lg mb-2">{hero.biography["full-name"]}</p>
         <p className="text-gray-700">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa
