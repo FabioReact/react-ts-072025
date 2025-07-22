@@ -1,11 +1,10 @@
 import { useState } from "react"
 import { useSearchParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 import HeroCard from "@/components/HeroCard";
-import { useGetHeroesByFirstLetter } from "@/hooks/useGetHeroesByFirstLetter";
 import { alphabet } from "./utils";
 import Loading from "@/components/Loading";
-import { useQuery } from "@tanstack/react-query";
-import { getHeroesByFirstLetter } from "../../api/heroes";
+import { getHeroesByFirstLetter } from "@/api/heroes";
 
 const HeroesList = () => {
     const [searchParams, setSearchParams] = useSearchParams();
