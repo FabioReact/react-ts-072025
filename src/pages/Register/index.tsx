@@ -15,7 +15,6 @@ const Register = () => {
 
   const { onLogin } = useAuthContext();
 
-
   const onSubmitHandler: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     const response = await registerUser({ email: data.email, password: data.password });
@@ -25,7 +24,7 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <div>Register</div>
+      <h1>Register</h1>
       <input
         className="border"
         type="text"
