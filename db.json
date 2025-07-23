@@ -3,7 +3,11 @@
     {
       "email": "email@email.fr",
       "password": "$2a$10$YEkKWy/5ez4eSQEihvmNVOkWECoiZ5ok1NVHoy4NWJOpSl8WkmNTq",
-      "id": 1
+      "id": 1,
+      "favorites": [
+        1,
+        2
+      ]
     },
     {
       "email": "email2@email.fr",
