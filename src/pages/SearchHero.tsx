@@ -4,7 +4,7 @@ import { z } from "zod";
 import { getHeroesByFilters } from "@/api/heroes";
 import { useState } from "react";
 import type { Hero } from "@/types/hero";
-import HeroCard from "@/components/HeroCard";
+import HeroCard from "@/components/HeroCard/HeroCard";
 
 const searchSchema = z.object({
   name: z.string(),

@@ -1,6 +1,6 @@
 import { getHeroById } from "@/api/heroes";
-import HeroCard from "@/components/HeroCard";
-import Loading from "@/components/Loading";
+import HeroCard from "@/components/HeroCard/HeroCard";
+import Loading from "@/components/Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router";
 

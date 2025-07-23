@@ -1,7 +1,8 @@
 import { Link } from "react-router";
-import type { Hero } from "../types/hero";
+import type { Hero } from "@/types/hero";
 import { useFavoriteContext } from "@/context/favorite-context";
-import Star from "./Star";
+import Star from "../Star";
+import { useAuthContext } from "@/context/auth-context";
 
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 
 const HeroCard = ({ hero }: Props) => {
   const { favorites, addToFavorite, removeFromFavorite } = useFavoriteContext();
+  const { email } = useAuthContext();
   const isFavorite = favorites.some((favorite) => favorite.id === hero.id); // TODO: optimize this check
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg">
@@ -28,7 +30,7 @@ const HeroCard = ({ hero }: Props) => {
               <span className="text-gray-600 text-base">#{hero.id}</span>
             </p>
           </Link>
-          <Star onSelect={() => addToFavorite(hero)} filled={isFavorite} onUnSelect={() => removeFromFavorite(hero.id)} />
+          {email && <Star onSelect={() => addToFavorite(hero)} filled={isFavorite} onUnSelect={() => removeFromFavorite(hero.id)} />}
         </div>
         <p className="text-lg mb-2">{hero.biography["full-name"]}</p>
         <p className="text-gray-700">

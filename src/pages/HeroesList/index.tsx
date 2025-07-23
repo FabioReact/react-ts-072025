@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import HeroCard from "@/components/HeroCard";
+import HeroCard from "@/components/HeroCard/HeroCard";
 import { alphabet } from "./utils";
-import Loading from "@/components/Loading";
+import Loading from "@/components/Loading/Loading";
 import { getHeroesByFirstLetter } from "@/api/heroes";
 
 const HeroesList = () => {

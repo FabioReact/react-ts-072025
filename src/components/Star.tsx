@@ -9,9 +9,9 @@ type Props = {
 
 const Star = ({ filled = false, onSelect, onUnSelect, color = "gold" }: Props) => {
   if (filled) {
-    return <LucideStart onClick={onUnSelect} fill={color} color={color} />;
+    return <LucideStart role="checkbox" aria-selected="true" onClick={onUnSelect} fill={color} color={color} />;
   }
-  return <LucideStart onClick={onSelect} fill="white" color={color} />;
+  return <LucideStart role="checkbox" aria-selected="false" onClick={onSelect} fill="white" color={color} />;
 };
 
 export default Star;

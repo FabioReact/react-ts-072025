@@ -1,17 +1,20 @@
 import { Route, Routes } from "react-router";
 import Home from "./pages/Home";
-import HeroesList from "./pages/HeroesList";
-import LifeCycle from "./learning/LifeCycle";
-import Counter from "./learning/Counter";
 import MainLayout from "./layout/MainLayout";
 import HeroDetails from "./pages/HeroDetails";
 import Register from "./pages/Register";
-import Profile from "./pages/Profile";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Login from "./pages/Login";
 import Logout from "./components/Logout";
 import SearchHero from "./pages/SearchHero";
 import Battle from "./pages/Battle";
+import { lazy } from "react";
+
+const Counter = lazy(() => import("./learning/Counter"));
+const LifeCycle = lazy(() => import("./learning/LifeCycle"));
+const Optimizations = lazy(() => import("./learning/Optimizations"));
+const Profile = lazy(() => import("./pages/Profile"));
+const HeroesList = lazy(() => import("./pages/HeroesList"));
 
 const AppRoutes = () => {
   return (
@@ -25,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+          <Route path="/learning/optimizations" element={<Optimizations />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/learning">

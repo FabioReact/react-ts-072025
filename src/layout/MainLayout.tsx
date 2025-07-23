@@ -1,4 +1,6 @@
+import Spinner from "@/components/Spinner/Spinner";
 import { useAuthContext } from "@/context/auth-context";
+import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router";
 
 enum LinkVisibility {
@@ -82,7 +84,9 @@ const MainLayout = () => {
         </ul>
       </nav>
       <main>
-        <Outlet />
+        <Suspense fallback={<Spinner />}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );

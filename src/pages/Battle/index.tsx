@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectHero from "./SelectHero";
 import type { Hero } from "@/types/hero";
-import HeroCard from "@/components/HeroCard";
+import HeroCard from "@/components/HeroCard/HeroCard";
 import Swords from "@/components/Icons/Swords";
 import { fight } from "@/utils/fight";
 
