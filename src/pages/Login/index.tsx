@@ -18,7 +18,7 @@ const Login = () => {
             email,
             password,
         }); // Appel API
-        onLogin(response.accessToken, response.user.email); // Met à jour le contexte
+        onLogin(response.accessToken, response.user.email, response.user.id); // Met à jour le contexte
         const nextRoute = location.state?.from || '/profile'; // Redirection par défaut
         navigate(nextRoute, { replace: true }); // Redirige vers la page d'origine ou vers /profile
     }

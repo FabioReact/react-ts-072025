@@ -18,7 +18,7 @@ const Register = () => {
   const onSubmitHandler: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     const response = await registerUser({ email: data.email, password: data.password });
-    onLogin(response.accessToken, response.user.email);
+    onLogin(response.accessToken, response.user.email, response.user.id);
     navigate("/profile");
   };
 

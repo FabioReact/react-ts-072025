@@ -31,6 +31,12 @@ export const getHeroById = async (id: string, options: RequestInit = {}) => {
   return response;
 };
 
+export const getHeroesById = async (ids: number[]) => {
+  const arrayOfPromise = ids.map((id) => getHeroById(id.toString()));
+  const response = await Promise.allSettled(arrayOfPromise);
+  return response.filter(pr => pr.status === 'fulfilled').map(pr => pr.value);
+};
+
 export const deleteHero = async (id: number) => {
   await fetch(`http://localhost:4000/heroes/${id}`, {
     method: "DELETE",

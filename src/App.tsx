@@ -6,20 +6,19 @@ import FavoriteContextProvider from "./providers/FavoriteContextProvider";
 import AppRoutes from "./routes";
 import { ToastContainer } from "react-toastify";
 
-
 const client = new QueryClient();
 function App() {
   return (
-    <AuthContextProvider>
-      <FavoriteContextProvider>
-        <QueryClientProvider client={client}>
+    <QueryClientProvider client={client}>
+      <AuthContextProvider>
+        <FavoriteContextProvider>
           <ToastContainer />
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
-        </QueryClientProvider>
-      </FavoriteContextProvider>
-    </AuthContextProvider>
+        </FavoriteContextProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
   );
 }
 

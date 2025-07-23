@@ -3,7 +3,8 @@ import { createContext, useContext } from "react";
 export type AuthContextType = {
   accessToken: string | null;
   email: string | null;
-  onLogin: (token: string, email: string) => void;
+  id: number | null;
+  onLogin: (token: string, email: string, id: number) => void;
   onLogout: () => void;
 };
 

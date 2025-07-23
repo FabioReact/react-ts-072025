@@ -5,33 +5,27 @@ import { useMutation } from "@tanstack/react-query";
 import { Bounce, toast } from "react-toastify";
 
 const Profile = () => {
-  const { accessToken, onLogout } = useAuthContext();
+  const { id: userId, accessToken, onLogout } = useAuthContext();
   const { favorites, removeFromFavorite } = useFavoriteContext();
 
   const { isPending, mutate } = useMutation({
-    mutationFn: saveFavorites,
+    mutationFn: () => saveFavorites(userId!, favorites.map(hero => hero.id)),
     onSuccess: () => {
       toast.success("Favorites saved successfully", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
-        closeOnClick: false,
         pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "light",
         transition: Bounce,
-      });
+      }); 
     },
     onError: (error) => {
       toast.error(error.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
-        closeOnClick: false,
         pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         theme: "light",
         transition: Bounce,
       });
@@ -39,15 +33,17 @@ const Profile = () => {
   });
 
   const onClickSave = async () => {
-      mutate();
-  }
+    mutate();
+  };
   return (
     <section>
       <h1>Profile - {accessToken}</h1>
       <button onClick={onLogout}>Logout</button>
       <div>
         <h2>Favorites</h2>
-        <button onClick={onClickSave} disabled={isPending}>Save to DB</button>
+        <button onClick={onClickSave} disabled={isPending}>
+          Save to DB
+        </button>
         <ul>
           {favorites.map((hero) => (
             <li key={hero.id}>
