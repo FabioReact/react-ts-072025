@@ -12,6 +12,17 @@ export const getHeroesByFirstLetter = async (
   return response;
 };
 
+export const getHeroesByName = async (
+  name: string,
+  options: RequestInit = {},
+) => {
+  const response = await FetchClient.get<Hero[]>(
+    `http://localhost:4000/heroes?name_like=${name}`,
+    options,
+  );
+  return response;
+};
+
 export const getHeroById = async (id: string, options: RequestInit = {}) => {
   const response = await FetchClient.get<Hero>(
     `http://localhost:4000/heroes/${id}`,

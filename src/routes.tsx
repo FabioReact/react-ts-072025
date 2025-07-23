@@ -11,12 +11,14 @@ import PrivateRoute from "./hoc/PrivateRoute";
 import Login from "./pages/Login";
 import Logout from "./components/Logout";
 import SearchHero from "./pages/SearchHero";
+import Battle from "./pages/Battle";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/battle" element={<Battle />} />
         <Route path="/heroes" element={<HeroesList />} />
         <Route path="/heroes/:id" element={<HeroDetails />} />
         <Route path="/search" element={<SearchHero />} />

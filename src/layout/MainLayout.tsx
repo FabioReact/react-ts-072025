@@ -24,6 +24,7 @@ const MainLayout = () => {
 
   const links: { to: string; label: string; visibility: LinkVisibility }[] = [
     { to: "/", label: "Home", visibility: LinkVisibility.PUBLIC },
+    { to: "/battle", label: "Battle", visibility: LinkVisibility.PUBLIC },
     { to: "/heroes", label: "Heroes", visibility: LinkVisibility.PUBLIC },
     { to: "/search", label: "Search", visibility: LinkVisibility.PUBLIC },
     {
