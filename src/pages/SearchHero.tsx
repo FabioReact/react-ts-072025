@@ -32,15 +32,13 @@ const SearchHero = () => {
   const [heroes, setHeroes] = useState<Hero[] | null>(null);
 
   const handleSearch = async (data: SearchFormData) => {
-    // Implement search logic here based on data
-    console.log(data);
     const response = await getHeroesByFilters(data);
     setHeroes(response);
   };
 
   return (
-    <section className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
+    <section>
+      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Search Heroes</h1>
         <form onSubmit={handleSubmit(handleSearch)} className="space-y-6">
           <fieldset>
@@ -78,7 +76,7 @@ const SearchHero = () => {
       {heroes && (
         <div>
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Search Results</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="flex flex-wrap gap-4 justify-center">
             {heroes.map((hero) => (<HeroCard key={hero.id} hero={hero} />
             ))}
           </div>
