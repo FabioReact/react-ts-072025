@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import PrivateRoute from "./hoc/PrivateRoute";
 import Login from "./pages/Login";
 import Logout from "./components/Logout";
+import SearchHero from "./pages/SearchHero";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/heroes" element={<HeroesList />} />
         <Route path="/heroes/:id" element={<HeroDetails />} />
+        <Route path="/search" element={<SearchHero />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />

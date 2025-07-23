@@ -32,3 +32,29 @@ export const updateHero = async (hero: Hero) => {
     body: JSON.stringify(hero),
   });
 };
+
+export const getHeroesByFilters = async (filters: {
+  name: string;
+  intelligence: string;
+  combat: string;
+  durability: string;
+  power: string;
+  speed: string;
+  strength: string;
+  alignment: string;
+}): Promise<Hero[]> => {
+  console.log({ filters });
+  const { name, intelligence, combat, durability, power, speed, strength, alignment } = filters;
+  const params = new URLSearchParams({
+    name_like: name,
+    'powerstats.intelligence_gte': intelligence,
+    'powerstats.combat_gte': combat,
+    'powerstats.durability_gte': durability,
+    'powerstats.power_gte': power,
+    'powerstats.speed_gte': speed,
+    'powerstats.strength_gte': strength,
+    'biography.alignment_like': alignment,
+  });
+  const response = await FetchClient.get<Hero[]>(`http://localhost:4000/heroes?${params}`);
+  return response;
+};
