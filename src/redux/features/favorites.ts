@@ -19,6 +19,9 @@ export const favoriteSlice = createSlice({
     addToFavorite: (state, action: PayloadAction<Hero>) => {
       state.heroes.push(action.payload);
     },
+    addHeroesToFavorites: (state, action: PayloadAction<Hero[]>) => {
+      state.heroes.push(...action.payload);
+    },
     removeFromFavorite: (state, action: PayloadAction<number>) => {
       state.heroes = state.heroes.filter((h) => h.id !== action.payload);
     },

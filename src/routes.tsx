@@ -10,6 +10,7 @@ import SearchHero from "./pages/SearchHero";
 import Battle from "./pages/Battle";
 import { lazy } from "react";
 import TabContainer from "./learning/useTransition/TabContainer";
+import ZustandExample from "./learning/ZustandExample";
 
 const Counter = lazy(() => import("./learning/Counter"));
 const LifeCycle = lazy(() => import("./learning/LifeCycle"));
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/learning">
+            <Route path="zustand" element={<ZustandExample />} />
             <Route path="lifecycle" element={<LifeCycle />} />
             <Route path="counter" element={<Counter />} />
           </Route>

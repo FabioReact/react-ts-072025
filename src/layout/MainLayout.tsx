@@ -1,4 +1,5 @@
 import Spinner from "@/components/Spinner/Spinner";
+import { useBearStore } from "@/zustand/store";
 import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router";
 import { useLocalStorage } from "usehooks-ts";
@@ -23,6 +24,7 @@ const getActiveClassnames = ({
 
 const MainLayout = () => {
   const [accessToken] = useLocalStorage<string | null>('accessToken', null);
+  const bears = useBearStore((state) => state.bears);
 
   const links: { to: string; label: string; visibility: LinkVisibility }[] = [
     { to: "/", label: "Home", visibility: LinkVisibility.PUBLIC },
@@ -53,6 +55,7 @@ const MainLayout = () => {
   return (
     <div>
       <nav>
+        <p>{bears}🐻</p>
         <ul className="flex gap-4 justify-center">
           {links
             .filter((link) => {
