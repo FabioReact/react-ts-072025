@@ -29,13 +29,13 @@ const FavoriteContextProvider = ({
   })
 
   useEffect(() => {
-    if (!isLoading && !isError && data) {
+    if (data) {
       setFavoriteIds(data);
     }
   }, [data]);
 
   useEffect(() => {
-    if (!isLoading && !isError && favoriteHeroes) {
+    if (favoriteHeroes) {
       setFavorites(favoriteHeroes);
     }
   }, [favoriteHeroes]);

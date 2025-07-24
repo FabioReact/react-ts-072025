@@ -27,7 +27,7 @@ const SearchHero = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SearchFormData>({
-    resolver: zodResolver(searchSchema) as any,
+    resolver: zodResolver(searchSchema),
   });
   const [heroes, setHeroes] = useState<Hero[] | null>(null);
 

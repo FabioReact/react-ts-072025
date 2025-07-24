@@ -14,7 +14,7 @@ const HeroCard = ({ hero }: Props) => {
   const favorites = useAppSelector((state) => state.favorites.heroes);
   const dispatch = useAppDispatch()
   const [accessToken] = useLocalStorage<string | null>('accessToken', null);
-  const isFavorite = favorites.some((favorite) => favorite.id === hero.id); // TODO: optimize this check
+  const isFavorite = favorites.some((favorite) => favorite.id === hero.id);
   return (
     <div className="max-w-xs rounded overflow-hidden shadow-lg">
       <div className="h-96 overflow-hidden relative">

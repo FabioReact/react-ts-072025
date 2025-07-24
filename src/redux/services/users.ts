@@ -19,8 +19,8 @@ export const usersApi = createApi({
         method: 'PATCH',
         body: { favorites },
       })
-    })
+    }),
   }),
 })
 
-export const { useGetUserByIdQuery, useSaveFavoritesMutation } = usersApi
+export const { useGetUserByIdQuery, useLazyGetUserByIdQuery, useSaveFavoritesMutation } = usersApi

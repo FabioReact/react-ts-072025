@@ -1,22 +1,19 @@
 import { onLogout } from "@/redux/features/auth";
-import { removeFromFavorite } from "@/redux/features/favorites";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useSaveFavoritesMutation } from "@/redux/services/users";
+import { useGetUserByIdQuery, useSaveFavoritesMutation } from "@/redux/services/users";
 import { useEffect, useMemo } from "react";
 import { Bounce, toast } from "react-toastify";
 import { useLocalStorage } from "usehooks-ts";
 import { jwtDecode } from "jwt-decode";
 
 const Profile = () => {
-  // const { id: userId, accessToken } = useAppSelector(state => state.auth);
   const [accessToken] = useLocalStorage<string | null>('accessToken', null);
-
   const { sub: userId } = useMemo(() => jwtDecode<{ sub: number }>(accessToken!), [accessToken]);
-
-  // const { id: userId } = jwtDecode<{ id: number }>(accessToken!);
+  console.log({ userId});
   const favorites = useAppSelector(state => state.favorites.heroes);
   const dispatch = useAppDispatch();
   const [mutate, { isLoading, isError, isSuccess }] = useSaveFavoritesMutation();
+  const { data } = useGetUserByIdQuery(userId.toString());
 
   useEffect(() => {
     if (isSuccess) {
@@ -43,9 +40,6 @@ const Profile = () => {
       });
     }
   }, [isError])
-  
-  
-
 
   const onClickSave = async () => {
     mutate({ userId: userId!, favorites: favorites.map(hero => hero.id) });
@@ -61,18 +55,30 @@ const Profile = () => {
         <button onClick={onClickSave} disabled={isLoading}>
           Save to DB
         </button>
-        <ul>
-          {favorites.map((hero) => (
-            <li key={hero.id}>
-              <p>
-                {hero.id} - {hero.name}
-              </p>
-              <button onClick={() => dispatch(removeFromFavorite(hero.id))}>
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <h3>API Favorites</h3>
+          <ul>
+            {data?.favorites.map((id) => (
+              <li key={id}>
+                <p>
+                  {id}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Local Favorites</h3>
+          <ul>
+            {favorites.map((hero) => (
+              <li key={hero.id}>
+                <p>
+                  {hero.id} - {hero.name}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

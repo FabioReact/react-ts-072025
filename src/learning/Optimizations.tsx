@@ -6,7 +6,7 @@ const Title = ({ children }: { children: React.ReactNode }) => {
 
   useMemo(() => {
       let i = 100000000;
-      let tmp = result;
+      let tmp = 0;
       while (--i >= 0) {
         tmp += Math.random();
       }
