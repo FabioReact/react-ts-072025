@@ -18,7 +18,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     onLogin: (state, action: PayloadAction<AuthState>) => {
-      state = action.payload;
+        state.accessToken = action.payload.accessToken;
+        state.email = action.payload.email;
+        state.id = action.payload.id;
     },
     onLogout: (state) => {
       state.accessToken = null;
