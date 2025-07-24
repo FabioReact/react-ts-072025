@@ -3,6 +3,7 @@ import { onLogin } from "@/redux/features/auth";
 import { useAppDispatch } from "@/redux/hooks";
 import { useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { useLocalStorage } from "usehooks-ts";
 
 const Login = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -10,6 +11,11 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_lsAccessToken, setLsAccessToken] = useLocalStorage<string | null>(
+    "accessToken",
+    null,
+  );
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -19,6 +25,7 @@ const Login = () => {
       email,
       password,
     }); // Appel API
+    setLsAccessToken(response.accessToken);
     dispatch(
       onLogin({
         accessToken: response.accessToken,

@@ -1,7 +1,7 @@
 import Spinner from "@/components/Spinner/Spinner";
-import { useAppSelector } from "@/redux/hooks";
 import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router";
+import { useLocalStorage } from "usehooks-ts";
 
 enum LinkVisibility {
   PUBLIC = "PUBLIC",
@@ -22,7 +22,7 @@ const getActiveClassnames = ({
 };
 
 const MainLayout = () => {
-  const accessToken = useAppSelector(state => state.auth.accessToken);
+  const [accessToken] = useLocalStorage<string | null>('accessToken', null);
 
   const links: { to: string; label: string; visibility: LinkVisibility }[] = [
     { to: "/", label: "Home", visibility: LinkVisibility.PUBLIC },

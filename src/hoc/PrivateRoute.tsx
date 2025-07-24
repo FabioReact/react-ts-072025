@@ -1,8 +1,8 @@
-import { useAppSelector } from "@/redux/hooks";
 import { Navigate, Outlet, useLocation } from "react-router";
+import { useLocalStorage } from "usehooks-ts";
 
 const PrivateRoute = () => {
-    const accessToken = useAppSelector(state => state.auth.accessToken);
+    const [accessToken] = useLocalStorage<string | null>('accessToken', null);
     const location = useLocation();
 
     if (accessToken === null) {

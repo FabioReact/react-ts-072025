@@ -2,11 +2,18 @@ import { onLogout } from "@/redux/features/auth";
 import { removeFromFavorite } from "@/redux/features/favorites";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useSaveFavoritesMutation } from "@/redux/services/users";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Bounce, toast } from "react-toastify";
+import { useLocalStorage } from "usehooks-ts";
+import { jwtDecode } from "jwt-decode";
 
 const Profile = () => {
-  const { id: userId, accessToken } = useAppSelector(state => state.auth);
+  // const { id: userId, accessToken } = useAppSelector(state => state.auth);
+  const [accessToken] = useLocalStorage<string | null>('accessToken', null);
+
+  const { sub: userId } = useMemo(() => jwtDecode<{ sub: number }>(accessToken!), [accessToken]);
+
+  // const { id: userId } = jwtDecode<{ id: number }>(accessToken!);
   const favorites = useAppSelector(state => state.favorites.heroes);
   const dispatch = useAppDispatch();
   const [mutate, { isLoading, isError, isSuccess }] = useSaveFavoritesMutation();
@@ -45,7 +52,9 @@ const Profile = () => {
   };
   return (
     <section>
-      <h1>Profile - {accessToken}</h1>
+      <h1>Profile</h1>
+      <p>User ID: {userId}</p>
+      <p>Access Token: {accessToken}</p>
       <button onClick={()=> dispatch(onLogout())}>Logout</button>
       <div>
         <h2>Favorites</h2>

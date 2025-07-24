@@ -5,6 +5,7 @@ import { registerUser } from "@/api/auth";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "@/redux/hooks";
 import { onLogin } from "@/redux/features/auth";
+import { useLocalStorage } from 'usehooks-ts'
 
 const Register = () => {
   const {
@@ -13,6 +14,8 @@ const Register = () => {
     formState: { errors },
   } = useForm<Inputs>({ resolver: zodResolver(schema) });
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_lsAccessToken, setLsAccessToken] = useLocalStorage<string | null>('accessToken', null)
 
   const dispatch = useAppDispatch();
 
@@ -22,6 +25,7 @@ const Register = () => {
       email: data.email,
       password: data.password,
     });
+    setLsAccessToken(response.accessToken);
     dispatch(
       onLogin({
         accessToken: response.accessToken,
