@@ -3,7 +3,13 @@ import HeroCard from "./HeroCard";
 import FavoriteContextProvider from "@/providers/FavoriteContextProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router";
-import AuthContext from "@/context/auth-context";
+import { useLocalStorage } from "usehooks-ts";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
+
+vi.mock("usehooks-ts", () => ({
+  useLocalStorage: vi.fn().mockReturnValue([null, vi.fn()]),
+}));
 
 const yoda = {
   id: 729,
@@ -48,26 +54,20 @@ const yoda = {
 };
 
 type WrappersProps = {
-    children: React.ReactNode
-    isLoggedIn?: boolean
-}
+  children: React.ReactNode;
+  isLoggedIn?: boolean;
+};
 
-const Wrappers = ({ children, isLoggedIn = false }: WrappersProps) => {
+const Wrappers = ({ children }: WrappersProps) => {
   const client = new QueryClient();
   return (
-    <BrowserRouter>
-      <QueryClientProvider client={client}>
-        <AuthContext.Provider value={{
-            accessToken: isLoggedIn ? 'token' : null,
-             email: isLoggedIn ? 'user@email.com' : null, 
-             id: isLoggedIn ? 1 : null, 
-             onLogin: () => {},
-             onLogout: () => {},
-             }}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <QueryClientProvider client={client}>
           <FavoriteContextProvider>{children}</FavoriteContextProvider>
-        </AuthContext.Provider>
-      </QueryClientProvider>
-    </BrowserRouter>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </Provider>
   );
 };
 
@@ -83,10 +83,13 @@ describe("HeroCard Component", () => {
   });
 
   it("should have Star in HeroCard if user is logged in", () => {
-        render(
-      <Wrappers isLoggedIn>
+    (useLocalStorage as jest.Mock).mockReturnValue(["mocked-token", vi.fn()]);
+    render(
+      <Wrappers>
         <HeroCard hero={yoda} />
       </Wrappers>,
     );
-  })
+    const star = screen.queryByRole("checkbox");
+    expect(star).toBeInTheDocument();
+  });
 });
