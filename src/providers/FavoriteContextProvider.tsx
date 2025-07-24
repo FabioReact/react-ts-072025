@@ -1,7 +1,7 @@
 import { getHeroesById } from "@/api/heroes";
 import { getUserFavorites } from "@/api/userPreferences";
-import { useAuthContext } from "@/context/auth-context";
 import FavoriteContext from "@/context/favorite-context";
+import { useAppSelector } from "@/redux/hooks";
 import type { Hero } from "@/types/hero";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ const FavoriteContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { id } = useAuthContext()
+  const id = useAppSelector(state => state.auth.id);
 
   const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
   const [favorites, setFavorites] = useState<Hero[]>([]);

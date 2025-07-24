@@ -1,12 +1,16 @@
 import { saveFavorites } from "@/api/userPreferences";
-import { useAuthContext } from "@/context/auth-context";
-import { useFavoriteContext } from "@/context/favorite-context";
+import { onLogout } from "@/redux/features/auth";
+import { removeFromFavorite } from "@/redux/features/favorites";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { Bounce, toast } from "react-toastify";
 
 const Profile = () => {
-  const { id: userId, accessToken, onLogout } = useAuthContext();
-  const { favorites, removeFromFavorite } = useFavoriteContext();
+  const { id: userId, accessToken } = useAppSelector(state => state.auth);
+  const favorites = useAppSelector(state => state.favorites.heroes);
+  const dispatch = useAppDispatch();
+
+  // (type, payload) -> Action
 
   const { isPending, mutate } = useMutation({
     mutationFn: () => saveFavorites(userId!, favorites.map(hero => hero.id)),
@@ -38,7 +42,7 @@ const Profile = () => {
   return (
     <section>
       <h1>Profile - {accessToken}</h1>
-      <button onClick={onLogout}>Logout</button>
+      <button onClick={()=> dispatch(onLogout())}>Logout</button>
       <div>
         <h2>Favorites</h2>
         <button onClick={onClickSave} disabled={isPending}>
@@ -50,7 +54,7 @@ const Profile = () => {
               <p>
                 {hero.id} - {hero.name}
               </p>
-              <button onClick={() => removeFromFavorite(hero.id)}>
+              <button onClick={() => dispatch(removeFromFavorite(hero.id))}>
                 Remove
               </button>
             </li>

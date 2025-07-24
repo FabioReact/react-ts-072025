@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { schema, type Inputs } from "./schema";
 import { registerUser } from "@/api/auth";
-import { useAuthContext } from "@/context/auth-context";
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "@/redux/hooks";
+import { onLogin } from "@/redux/features/auth";
 
 const Register = () => {
   const {
@@ -13,12 +14,21 @@ const Register = () => {
   } = useForm<Inputs>({ resolver: zodResolver(schema) });
   const navigate = useNavigate();
 
-  const { onLogin } = useAuthContext();
+  const dispatch = useAppDispatch();
 
   const onSubmitHandler: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
-    const response = await registerUser({ email: data.email, password: data.password });
-    onLogin(response.accessToken, response.user.email, response.user.id);
+    const response = await registerUser({
+      email: data.email,
+      password: data.password,
+    });
+    dispatch(
+      onLogin({
+        accessToken: response.accessToken,
+        email: response.user.email,
+        id: response.user.id,
+      }),
+    );
     navigate("/profile");
   };
 

@@ -1,5 +1,5 @@
 import Spinner from "@/components/Spinner/Spinner";
-import { useAuthContext } from "@/context/auth-context";
+import { useAppSelector } from "@/redux/hooks";
 import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router";
 
@@ -22,7 +22,7 @@ const getActiveClassnames = ({
 };
 
 const MainLayout = () => {
-  const { accessToken } = useAuthContext();
+  const accessToken = useAppSelector(state => state.auth.accessToken);
 
   const links: { to: string; label: string; visibility: LinkVisibility }[] = [
     { to: "/", label: "Home", visibility: LinkVisibility.PUBLIC },
