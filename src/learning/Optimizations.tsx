@@ -1,4 +1,4 @@
-import { useState, memo, useCallback, useRef, useMemo } from "react";
+import { useState, memo, useCallback, useMemo } from "react";
 
 const Title = ({ children }: { children: React.ReactNode }) => {
   console.log("Render du composant Title");
