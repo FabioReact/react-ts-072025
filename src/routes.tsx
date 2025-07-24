@@ -9,6 +9,7 @@ import Logout from "./components/Logout";
 import SearchHero from "./pages/SearchHero";
 import Battle from "./pages/Battle";
 import { lazy } from "react";
+import TabContainer from "./learning/useTransition/TabContainer";
 
 const Counter = lazy(() => import("./learning/Counter"));
 const LifeCycle = lazy(() => import("./learning/LifeCycle"));
@@ -28,7 +29,8 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-          <Route path="/learning/optimizations" element={<Optimizations />} />
+        <Route path="/learning/optimizations" element={<Optimizations />} />
+        <Route path="/learning/transition" element={<TabContainer />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/learning">
