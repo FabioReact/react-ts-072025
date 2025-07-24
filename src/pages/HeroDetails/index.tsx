@@ -1,8 +1,9 @@
-import { getHeroById } from "@/api/heroes";
 import HeroCard from "@/components/HeroCard/HeroCard";
 import Loading from "@/components/Loading/Loading";
-import { useQuery } from "@tanstack/react-query";
+import { useGetHeroByIdQuery } from "@/redux/services/heroes";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
 
 const HeroDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,11 +13,13 @@ const HeroDetails = () => {
     data: hero,
     isLoading,
     isError,
-    error,
-  } = useQuery({
-    queryKey: ["hero", id],
-    queryFn: () => getHeroById(id!),
-  });
+  } = useGetHeroByIdQuery(id!);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Error fetching hero details");
+    }
+  }, [isError]);
 
   return (
     <div className="text-center">
@@ -30,11 +33,6 @@ const HeroDetails = () => {
       </button>
       <Loading isLoading={isLoading}>
         {!isError && hero && <HeroCard hero={hero} />}
-        {error && (
-          <p className="text-red-500">
-            Error fetching hero details: {error.message}
-          </p>
-        )}
         {!hero && <p className="text-red-500">Hero not found</p>}
       </Loading>
     </div>

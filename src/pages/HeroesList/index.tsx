@@ -1,25 +1,15 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
 import HeroCard from "@/components/HeroCard/HeroCard";
 import { alphabet } from "./utils";
 import Loading from "@/components/Loading/Loading";
-import { getHeroesByFirstLetter } from "@/api/heroes";
+import { useGetHeroesByLetterQuery } from "@/redux/services/heroes";
 
 const HeroesList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialLetter = searchParams.get("letter") ?? "A";
   const [selectedLetter, setSelectedLetter] = useState<string>(initialLetter);
-  // const { heroes, isLoading, isError, refetch } = useGetHeroesByFirstLetter(selectedLetter);
-  const {
-    data: heroes,
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["heroes", selectedLetter],
-    queryFn: () => getHeroesByFirstLetter(selectedLetter),
-  });
+  const { data: heroes ,isLoading, isError, refetch } = useGetHeroesByLetterQuery(initialLetter);
 
   const handleLetterChange = (letter: string) => {
     setSelectedLetter(letter);
